@@ -12,16 +12,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "funcionario_departamento")
-public class FuncionarioDepartamento {
+@Table(name = "hist_func_depto")
+public class HistoricoFuncionarioDepartamento {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "funcionario_departamento_id")
-	private Long funcionarioDepartamentoId;
+	@Column(name = "hist_func_depto_id")
+	private Long histFuncDeptoId;
 	
-	@Column(name = "funcionario_departamento_data")
-	private LocalDate funcionarioDepartamentoData;
+	@Column(name = "hist_func_depto_data")
+	private LocalDate histFuncDeptoData;
 	
 	@ManyToOne
 	@JoinColumn(name = "funcionario_id")
@@ -31,20 +31,20 @@ public class FuncionarioDepartamento {
 	@JoinColumn(name = "departamento_id")
 	private Departamento departamentoId;
 
-	public Long getFuncionarioDepartamentoId() {
-		return funcionarioDepartamentoId;
+	public Long getHistFuncDeptoId() {
+		return histFuncDeptoId;
 	}
 
-	public void setFuncionarioDepartamentoId(Long funcionarioDepartamentoId) {
-		this.funcionarioDepartamentoId = funcionarioDepartamentoId;
+	public void setHistFuncDeptoId(Long histFuncDeptoId) {
+		this.histFuncDeptoId = histFuncDeptoId;
 	}
 
-	public LocalDate getFuncionarioDepartamentoData() {
-		return funcionarioDepartamentoData;
+	public LocalDate getHistFuncDeptoData() {
+		return histFuncDeptoData;
 	}
 
-	public void setFuncionarioDepartamentoData(LocalDate funcionarioDepartamentoData) {
-		this.funcionarioDepartamentoData = funcionarioDepartamentoData;
+	public void setHistFuncDeptoData(LocalDate histFuncDeptoData) {
+		this.histFuncDeptoData = histFuncDeptoData;
 	}
 
 	public Funcionario getFuncionarioId() {
@@ -67,7 +67,7 @@ public class FuncionarioDepartamento {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((funcionarioDepartamentoId == null) ? 0 : funcionarioDepartamentoId.hashCode());
+		result = prime * result + ((histFuncDeptoId == null) ? 0 : histFuncDeptoId.hashCode());
 		return result;
 	}
 
@@ -79,11 +79,11 @@ public class FuncionarioDepartamento {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		FuncionarioDepartamento other = (FuncionarioDepartamento) obj;
-		if (funcionarioDepartamentoId == null) {
-			if (other.funcionarioDepartamentoId != null)
+		HistoricoFuncionarioDepartamento other = (HistoricoFuncionarioDepartamento) obj;
+		if (histFuncDeptoId == null) {
+			if (other.histFuncDeptoId != null)
 				return false;
-		} else if (!funcionarioDepartamentoId.equals(other.funcionarioDepartamentoId))
+		} else if (!histFuncDeptoId.equals(other.histFuncDeptoId))
 			return false;
 		return true;
 	}
