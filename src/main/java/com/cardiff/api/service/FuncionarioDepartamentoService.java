@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.cardiff.api.model.FuncionarioDepartamento;
 import com.cardiff.api.repository.FuncionarioDepartamentoRepository;
+import com.cardiff.api.repository.filter.FuncionarioDepartamentoFilter;
 
 @Service
 public class FuncionarioDepartamentoService {
 
 	@Autowired
 	FuncionarioDepartamentoRepository funcionarioDepartamentoRepository;
+	
+	public List<FuncionarioDepartamento> pesquisar(FuncionarioDepartamentoFilter dff){
+		return funcionarioDepartamentoRepository.pesquisar(dff);
+	}
 	
 	public List<FuncionarioDepartamento> listar(){
 		return funcionarioDepartamentoRepository.findAll();

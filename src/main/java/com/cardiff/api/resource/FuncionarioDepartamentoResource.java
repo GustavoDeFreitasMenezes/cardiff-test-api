@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cardiff.api.model.FuncionarioDepartamento;
+import com.cardiff.api.repository.filter.FuncionarioDepartamentoFilter;
 import com.cardiff.api.service.FuncionarioDepartamentoService;
 
 @RestController
@@ -28,6 +29,11 @@ public class FuncionarioDepartamentoResource {
 
 	@Autowired
 	private FuncionarioDepartamentoService funcionarioDepartamentoService;
+	
+	@GetMapping("/pesquisar")
+	public List<FuncionarioDepartamento> pesquisar(FuncionarioDepartamentoFilter dff) {
+		return funcionarioDepartamentoService.pesquisar(dff);		
+	}
 	
 	@GetMapping
 	public List<FuncionarioDepartamento> listar() {
