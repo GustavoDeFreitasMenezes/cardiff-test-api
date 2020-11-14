@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cardiff.api.model.HistoricoFuncionarioDepartamento;
+import com.cardiff.api.repository.filter.HistoricoFuncionarioDepartamentoFilter;
 import com.cardiff.api.service.HistoricoFuncionarioDepartamentoService;
 
 @RestController
@@ -24,6 +25,11 @@ public class HistoricoFuncionarioDepartamentoResource {
 
 	@Autowired
 	private HistoricoFuncionarioDepartamentoService historicoFuncionarioDepartamentoService;
+	
+	@GetMapping("/pesquisar")
+	public List<HistoricoFuncionarioDepartamento> pesquisar(HistoricoFuncionarioDepartamentoFilter h) {
+		return historicoFuncionarioDepartamentoService.pesquisar(h);		
+	}
 	
 	@GetMapping
 	public List<HistoricoFuncionarioDepartamento> listar() {

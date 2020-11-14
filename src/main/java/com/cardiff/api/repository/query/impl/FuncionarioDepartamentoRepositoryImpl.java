@@ -30,8 +30,7 @@ public class FuncionarioDepartamentoRepositoryImpl implements FuncionarioDeparta
 		CriteriaQuery<FuncionarioDepartamento> criteria = builder.createQuery(FuncionarioDepartamento.class);
 		
 		Root<FuncionarioDepartamento> root = criteria.from(FuncionarioDepartamento.class);
-		
-		
+				
 		List<Predicate> lp = new ArrayList<>();
 		
 		if (!StringUtils.isEmpty(dff.getDepartamentoId())) {
