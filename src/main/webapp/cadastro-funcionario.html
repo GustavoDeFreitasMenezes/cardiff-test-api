@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Departamentos</title>
+    <title>Funcionarios</title>
   </head>
   <body>
   	<button id="inicial" type="button">Pagina Inicial</button>
@@ -9,11 +9,23 @@
   	<form id="form" name="form">
   		<div>
 	        <label>Nome:</label>
-	        <input id="departamentoName" type="text" name="departamentoName" />
+	        <input id="funcionarioName" type="text" name="funcionarioName" />
 	    </div>
 	    <div>
-	    	<label>Chefe:</label>
-	    	<select id="comboFuncionario" name="funcionarioId"></select>
+	        <label>Documento:</label>
+	        <input id="funcionarioDocument" type="text" name="funcionarioDocument" />
+	    </div>
+	    <div>
+	        <label>Nascimento:</label>
+	        <input id="funcionarioBirthday" type="date" name="funcionarioBirthday" />
+	    </div>
+	    <div>
+	        <label>Idade:</label>
+	        <input id="funcionarioAge" type="text" name="funcionarioAge" />
+	    </div>
+	    <div>
+	    	<label>Cargo:</label>
+	    	<select id="comboCargo" name="cargoId"></select>
 	    </div>
   		<div>
 	        <button type="submit" onclick="salvar()">Salvar</button>
@@ -27,15 +39,20 @@
   	
   		function salvar(){
   			var http = new XMLHttpRequest();  			
-  			http.open('POST', "http://localhost:8080/departamento", true);
+  			http.open('POST', "http://localhost:8080/funcionario", true);
 
   			//Send the proper header information along with the request
   			http.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
   			  			  			
+  			alert(document.getElementById("funcionarioBirthday").value);
+  			
   			var data = {
-			    departamentoName : document.getElementById("departamentoName").value,
-			    funcionarioId : {
-			        funcionarioId : document.getElementById("comboFuncionario").value
+			    funcionarioName : document.getElementById("funcionarioName").value,
+			    funcionarioAge : document.getElementById("funcionarioAge").value,
+			    funcionarioBirthday : document.getElementById("funcionarioBirthday").value,
+			    funcionarioDocument : document.getElementById("funcionarioDocument").value,
+			    cargoId : {
+			        cargoId : document.getElementById("comboCargo").value
 			    }
 			};   				  				
 
@@ -53,7 +70,7 @@
 	  	window.onload = function() {
 	  		let resp;
             let request = new XMLHttpRequest();
-            request.open('GET', "http://localhost:8080/funcionario", true);
+            request.open('GET', "http://localhost:8080/cargo", true);
             request.onload = function() {
 	            if (request.readyState == 4 && (request.status >= 200 && request.status < 400)) {
 	                // Success!
@@ -63,7 +80,7 @@
 	                var obj = JSON.parse(retorno);
 	                var size = obj.length;
         			
-	                var comboDepto = document.getElementById("comboFuncionario");
+	                var comboDepto = document.getElementById("comboCargo");
 	                var opt0 = document.createElement("option");
 	                opt0.value = "0";
 	                opt0.text = "";
@@ -71,8 +88,8 @@
 	                
         			for(var i= 0; i< size; i++){
         				var opt = document.createElement("option");
-    	                opt.value = obj[i].funcionarioId;
-    	                opt.text = obj[i].funcionarioName;
+    	                opt.value = obj[i].cargoId;
+    	                opt.text = obj[i].cargoName;
     	                comboDepto.add(opt, i+1);        					
         			}
 	                	                

@@ -5,7 +5,7 @@
   </head>
   <body>
 	<button id="inicial" type="button">Pagina Inicial</button>
-    <button type="button">Criar</button>
+    <button id="adicionar" type="button">Criar</button>
     
     <table id="listaFuncionario" border="1">
         <tr>
@@ -20,6 +20,10 @@
     <script type="text/javascript">
 	    document.getElementById("inicial").onclick = function () {	    	
 	        location.href = "http://localhost:8080/index.html";
+	    };
+	    
+	    document.getElementById("adicionar").onclick = function () {	    	
+	        location.href = "http://localhost:8080/cadastro-funcionario.html";
 	    };
 	    
 	    window.onload = function() {
