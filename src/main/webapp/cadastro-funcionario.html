@@ -33,44 +33,16 @@
   	</form>
   	
   	<script type="text/javascript">
+  		var url = "http://localhost:8080";
+  	
 	  	document.getElementById("inicial").onclick = function () {	    	
-	        location.href = "http://localhost:8080/index.html";
+	        location.href = url + "/index.html";
 	    };
-  	
-  		function salvar(){
-  			var http = new XMLHttpRequest();  			
-  			http.open('POST', "http://localhost:8080/funcionario", true);
-
-  			//Send the proper header information along with the request
-  			http.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-  			  			  			
-  			alert(document.getElementById("funcionarioBirthday").value);
-  			
-  			var data = {
-			    funcionarioName : document.getElementById("funcionarioName").value,
-			    funcionarioAge : document.getElementById("funcionarioAge").value,
-			    funcionarioBirthday : document.getElementById("funcionarioBirthday").value,
-			    funcionarioDocument : document.getElementById("funcionarioDocument").value,
-			    cargoId : {
-			        cargoId : document.getElementById("comboCargo").value
-			    }
-			};   				  				
-
-  			http.onreadystatechange = function() {//Call a function when the state changes.
-  			    if(http.readyState == 4 && (http.status >= 200 && http.status < 400)) {
-  			        alert("Registro salvo com sucesso");
-  			    } else {
-  			    	console.log(http.responseText);
-  			    }
-  			}
-  			http.send(JSON.stringify(data));
-
-  		}
-  	
-	  	window.onload = function() {
+	    
+	    window.onload = function() {
 	  		let resp;
             let request = new XMLHttpRequest();
-            request.open('GET', "http://localhost:8080/cargo", true);
+            request.open('GET', url + "/cargo", true);
             request.onload = function() {
 	            if (request.readyState == 4 && (request.status >= 200 && request.status < 400)) {
 	                // Success!
@@ -104,6 +76,37 @@
 
             request.send();
 	  	};
+  	
+  		function salvar(){
+  			var http = new XMLHttpRequest();  			
+  			http.open('POST', url + "/funcionario", true);
+
+  			//Send the proper header information along with the request
+  			http.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+  			  			  			
+  			alert(document.getElementById("funcionarioBirthday").value);
+  			
+  			var data = {
+			    funcionarioName : document.getElementById("funcionarioName").value,
+			    funcionarioAge : document.getElementById("funcionarioAge").value,
+			    funcionarioBirthday : document.getElementById("funcionarioBirthday").value,
+			    funcionarioDocument : document.getElementById("funcionarioDocument").value,
+			    cargoId : {
+			        cargoId : document.getElementById("comboCargo").value
+			    }
+			};   				  				
+
+  			http.onreadystatechange = function() {//Call a function when the state changes.
+  			    if(http.readyState == 4 && (http.status >= 200 && http.status < 400)) {
+  			        alert("Registro salvo com sucesso");
+  			    } else {
+  			    	console.log(http.responseText);
+  			    }
+  			}
+  			http.send(JSON.stringify(data));
+
+  		};  	
+	  	
   	</script>
   	  
   </body>

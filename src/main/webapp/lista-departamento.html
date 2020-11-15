@@ -17,38 +17,20 @@
     </table>  
     
     <script type="text/javascript">
-    	function excluirLinha(btn) {
-    	  var row = btn.parentNode.parentNode;
-    	  var data = row.cells[0].firstChild.data;
-    	  
-    	  var http = new XMLHttpRequest();  			
-		  http.open('DELETE', "http://localhost:8080/departamento/" + data, true);
-		  
-		  http.onload = function () {			
-			if (http.readyState == 4 && (http.status >= 200 && http.status < 400)) {
-				row.parentNode.removeChild(row);
-				alert("Registro removido com sucesso");
-			} else {
-				console.log(http.responseText);
-			}
-		  }
-		  
-		  http.send();    	  
-    	  
-    	}
+    	var url = "http://localhost:8080";
     
-	    document.getElementById("inicial").onclick = function () {	    	
-	        location.href = "http://localhost:8080/index.html";
+    	document.getElementById("inicial").onclick = function () {	    	
+	        location.href = url + "/index.html";
 	    };
 	    
 	    document.getElementById("adicionar").onclick = function () {	    	
-	        location.href = "http://localhost:8080/cadastro-departamento.html";
+	        location.href = url + "/cadastro-departamento.html";
 	    };
 	    
 	    window.onload = function() {
 	    	let resp;
             let request = new XMLHttpRequest();
-            request.open('GET', "http://localhost:8080/departamento", true);
+            request.open('GET', url + "/departamento", true);
             request.onload = function() {
 	            if (request.readyState == 4 && (request.status >= 200 && request.status < 400)) {
 	                // Success!
@@ -79,7 +61,27 @@
 
             request.send();
 	    };
-	    	    
+	    	
+    	function excluirLinha(btn) {
+    	  var row = btn.parentNode.parentNode;
+    	  var data = row.cells[0].firstChild.data;
+    	  
+    	  var http = new XMLHttpRequest();  			
+		  http.open('DELETE', url + "/departamento/" + data, true);
+		  
+		  http.onload = function () {			
+			if (http.readyState == 4 && (http.status >= 200 && http.status < 400)) {
+				row.parentNode.removeChild(row);
+				alert("Registro removido com sucesso");
+			} else {
+				console.log(http.responseText);
+			}
+		  }
+		  
+		  http.send();    	  
+    	  
+    	};
+    
 	    
     </script>
     

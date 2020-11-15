@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Departamentos</title>
+    <title>Funcionarios e Departamentos</title>
   </head>
   <body>
   	<button id="inicial" type="button">Pagina Inicial</button>
   
-  	<form id="form" name="form">
-  		<div>
-	        <label>Nome:</label>
-	        <input id="departamentoName" type="text" name="departamentoName" />
+  	<form id="form" name="form">  		
+	    <div>
+	    	<label>Funcionario:</label>
+	    	<select id="comboFuncionario" name="funcionarioId"></select>
 	    </div>
 	    <div>
-	    	<label>Chefe:</label>
-	    	<select id="comboFuncionario" name="funcionarioId"></select>
+	    	<label>Departamento:</label>
+	    	<select id="comboDepartamento" name="departamentoId"></select>
+	    </div>
+	    <div>
+	        <label>Entrada:</label>
+	        <input id="funcDeptoData" type="date" name="funcDeptoData" />
 	    </div>
   		<div>
 	        <button type="submit" onclick="salvar()">Salvar</button>
@@ -27,7 +31,12 @@
 	        location.href = url + "/index.html";
 	    };
 	    
-	    window.onload = function() {
+	    window.onload = function() {	    	
+	    	populaFuncionario();
+	    	populaDepartamento();	    		  		
+	  	};
+	  	
+	  	function populaFuncionario(){
 	  		let resp;
             let request = new XMLHttpRequest();
             request.open('GET', url + "/funcionario", true);
@@ -64,18 +73,59 @@
 
             request.send();
 	  	};
+	  	
+	  	function populaDepartamento(){
+	  		let resp;
+            let request = new XMLHttpRequest();
+            request.open('GET', url + "/departamento", true);
+            request.onload = function() {
+	            if (request.readyState == 4 && (request.status >= 200 && request.status < 400)) {
+	                // Success!
+	                resp = request.responseText;	                
+	                
+	                var retorno = request.responseText;
+	                var obj = JSON.parse(retorno);
+	                var size = obj.length;
+        			
+	                var comboDepto = document.getElementById("comboDepartamento");
+	                var opt0 = document.createElement("option");
+	                opt0.value = "0";
+	                opt0.text = "";
+	                comboDepto.add(opt0, 0);
+	                
+        			for(var i= 0; i< size; i++){
+        				var opt = document.createElement("option");
+    	                opt.value = obj[i].departamentoId;
+    	                opt.text = obj[i].departamentoName;
+    	                comboDepto.add(opt, i+1);        					
+        			}
+	                	                
+	            } else {
+	            	console.log("erro");
+	            }
+            };
+            
+            request.onerror = function() {            
+                console.log("Erro:"+request);
+            };
+
+            request.send();
+	  	}
   	
   		function salvar(){
   			var http = new XMLHttpRequest();  			
-  			http.open('POST', url + "/departamento", true);
+  			http.open('POST', url + "/funcionarioDepartamento", true);
 
   			//Send the proper header information along with the request
   			http.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
   			  			  			
-  			var data = {
-			    departamentoName : document.getElementById("departamentoName").value,
+  			var data = {    
+			    funcionarioDepartamentoData : document.getElementById("funcDeptoData").value,
 			    funcionarioId : {
 			        funcionarioId : document.getElementById("comboFuncionario").value
+			    },
+			    departamentoId : {
+			        departamentoId : document.getElementById("comboDepartamento").value
 			    }
 			};   				  				
 

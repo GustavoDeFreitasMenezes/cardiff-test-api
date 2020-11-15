@@ -11,20 +11,22 @@
     <button id="histFuncDepto" type="button" >Histórico Departamentos por Funcionarios</button>
         
     <script type="text/javascript">
+    	var url = "http://localhost:8080";
+    
 	    document.getElementById("depto").onclick = function () {	    	
-	        location.href = "http://localhost:8080/lista-departamento.html";
+	        location.href = url + "/lista-departamento.html";
 	    };
 	    document.getElementById("func").onclick = function () {	    	
-	        location.href = "http://localhost:8080/lista-funcionario.html";
+	        location.href = url + "/lista-funcionario.html";
 	    };
 	    document.getElementById("deptoFunc").onclick = function () {	    	
-	        location.href = "http://localhost:8080/lista-funcionario-departamento.html";
+	        location.href = url + "/lista-funcionario-departamento.html";
 	    };
 	    document.getElementById("funcDepto").onclick = function () {	    	
-	        location.href = "http://localhost:8080/consulta-funcionario-departamento.html";
+	        location.href = url + "/consulta-funcionario-departamento.html";
 	    };
 	    document.getElementById("histFuncDepto").onclick = function () {	    	
-	        location.href = "http://localhost:8080/consulta-historico-funcionario-departamento.html";
+	        location.href = url + "/consulta-historico-funcionario-departamento.html";
 	    };
     </script>
   
