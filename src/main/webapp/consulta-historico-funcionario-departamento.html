@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Consulta Funcionario por Departamento</title>
+    <title>Consulta Historico Departamento por Funcionario</title>
   </head>
   <body>
   	<button id="inicial" type="button">Pagina Inicial</button>
   	
-	<select id="comboDepartamento" onchange="consultaFuncDepto()"></select>
+	<select id="comboFuncionario" onchange="consultaFuncDepto()"></select>
 	
-    <table id="listaFuncionario" border="1">
+    <table id="listaDepartamento" border="1">
         <tr>
-          <td>Nome</td>
-          <td>Documento</td>
-          <td>Idade</td>
-          <td>Data Nascimento</td>
-          <td>Cargo</td>
+          <td>Departamento</td>
+          <td>Data Entrada</td>          
         </tr>
     </table>  
     
@@ -24,11 +21,11 @@
 	    };
 	    
 	    function consultaFuncDepto(){
-	    	var valor = document.getElementById("comboDepartamento").value;
+	    	var valor = document.getElementById("comboFuncionario").value;
 	        
 	    	let resp;
             let request = new XMLHttpRequest();
-            request.open('GET', "http://localhost:8080/funcionarioDepartamento/pesquisar?departamentoId=" + valor, true);
+            request.open('GET', "http://localhost:8080/histFuncDepto/pesquisar?funcionarioId=" + valor, true);
             
             request.onload = function() {
 	            if (request.readyState == 4 && (request.status >= 200 && request.status < 400)) {
@@ -39,14 +36,14 @@
 	                var obj = JSON.parse(retorno);
 	                var size = obj.length;
         			
-					var table = document.getElementById('listaFuncionario'); 
+					var table = document.getElementById('listaDepartamento'); 
 					table.innerHTML = "";
 					var cabecalho = table.insertRow(0);
-					cabecalho.innerHTML = "<tr><td>Nome</td><td>Documento</td><td>Idade</td><td>Data Nascimento</td><td>Cargo</td></tr>";
+					cabecalho.innerHTML = "<tr><td>Departamento</td><td>Data Entrada</td></tr>";
         			
         			for(var i= 0; i< size; i++){
         				var row = table.insertRow(i+1);
-    	                row.innerHTML = "<td>"+obj[i].funcionarioId.funcionarioName+"</td> <td>"+obj[i].funcionarioId.funcionarioDocument+"</td><td>"+obj[i].funcionarioId.funcionarioAge+"</td><td>"+obj[i].funcionarioId.funcionarioBirthday+"</td><td>"+obj[i].funcionarioId.cargoId.cargoName+"</td>";	
+    	                row.innerHTML = "<td>"+obj[i].departamentoId.departamentoName+"</td> <td>"+obj[i].histFuncDeptoData+"</td>";	
         			}
 	                //document.getElementById(id).innerText=resp;
 	            } else {
@@ -66,7 +63,7 @@
 	    window.onload = function() {
 	    	let resp;
             let request = new XMLHttpRequest();
-            request.open('GET', "http://localhost:8080/departamento", true);
+            request.open('GET', "http://localhost:8080/funcionario", true);
             request.onload = function() {
 	            if (request.readyState == 4 && (request.status >= 200 && request.status < 400)) {
 	                // Success!
@@ -76,7 +73,7 @@
 	                var obj = JSON.parse(retorno);
 	                var size = obj.length;
         			
-	                var comboDepto = document.getElementById("comboDepartamento");
+	                var comboDepto = document.getElementById("comboFuncionario");
 	                var opt0 = document.createElement("option");
 	                opt0.value = "0";
 	                opt0.text = "";
@@ -84,8 +81,8 @@
 	                
         			for(var i= 0; i< size; i++){
         				var opt = document.createElement("option");
-    	                opt.value = obj[i].departamentoId;
-    	                opt.text = obj[i].departamentoName;
+    	                opt.value = obj[i].funcionarioId;
+    	                opt.text = obj[i].funcionarioName;
     	                comboDepto.add(opt, i+1);        					
         			}
 	                	                

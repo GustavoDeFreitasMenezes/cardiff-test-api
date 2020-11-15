@@ -6,8 +6,8 @@
   <body>
     <button id="func" type="button" >Funcionarios</button>
     <button id="funcDepto" type="button" >Funcionarios por Departamento</button>
-    
-    
+    <button id="histFuncDepto" type="button" >Histórico Departamentos por Funcionarios</button>
+        
     <script type="text/javascript">
 	    document.getElementById("func").onclick = function () {	    	
 	        location.href = "http://localhost:8080/consulta-funcionario.html";
@@ -15,7 +15,9 @@
 	    document.getElementById("funcDepto").onclick = function () {	    	
 	        location.href = "http://localhost:8080/consulta-funcionario-departamento.html";
 	    };
-	    
+	    document.getElementById("histFuncDepto").onclick = function () {	    	
+	        location.href = "http://localhost:8080/consulta-historico-funcionario-departamento.html";
+	    };
     </script>
   
   </body>
