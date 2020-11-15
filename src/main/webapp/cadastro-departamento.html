@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Funcionarios e Departamentos</title>
+  </head>
+  <body>
+  	<button id="inicial" type="button">Pagina Inicial</button>
+  
+  	<form id="form" name="form">
+  		<div>
+	        <label>Nome:</label>
+	        <input id="departamentoName" type="text" name="departamentoName" />
+	    </div>
+	    <div>
+	    	<label>Chefe:</label>
+	    	<select id="comboFuncionario" name="funcionarioId"></select>
+	    </div>
+  		<div>
+	        <button type="submit" onclick="salvar()">Salvar</button>
+	    </div>
+  	</form>
+  	
+  	<script type="text/javascript">
+	  	document.getElementById("inicial").onclick = function () {	    	
+	        location.href = "http://localhost:8080/index.html";
+	    };
+  	
+  		function salvar(){
+  			var http = new XMLHttpRequest();
+  			//var params = 'orem=ipsum&name=binny';
+  			http.open('POST', "http://localhost:8080/departamento", true);
+
+  			//Send the proper header information along with the request
+  			http.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+  			  			  			
+  			var data = {
+			    departamentoName : document.getElementById("departamentoName").value,
+			    funcionarioId : {
+			        funcionarioId : document.getElementById("comboFuncionario").value
+			    }
+			};   				  				
+
+  			http.onreadystatechange = function() {//Call a function when the state changes.
+  			    if(http.readyState == 4 && http.status == 200) {
+  			        alert(http.responseText);
+  			    } else {
+  			    	alert(http.responseText);
+  			    }
+  			}
+  			http.send(JSON.stringify(data));
+
+  		}
+  	
+	  	window.onload = function() {
+	  		let resp;
+            let request = new XMLHttpRequest();
+            request.open('GET', "http://localhost:8080/funcionario", true);
+            request.onload = function() {
+	            if (request.readyState == 4 && (request.status >= 200 && request.status < 400)) {
+	                // Success!
+	                resp = request.responseText;	                
+	                
+	                var retorno = request.responseText;
+	                var obj = JSON.parse(retorno);
+	                var size = obj.length;
+        			
+	                var comboDepto = document.getElementById("comboFuncionario");
+	                var opt0 = document.createElement("option");
+	                opt0.value = "0";
+	                opt0.text = "";
+	                comboDepto.add(opt0, 0);
+	                
+        			for(var i= 0; i< size; i++){
+        				var opt = document.createElement("option");
+    	                opt.value = obj[i].funcionarioId;
+    	                opt.text = obj[i].funcionarioName;
+    	                comboDepto.add(opt, i+1);        					
+        			}
+	                	                
+	            } else {
+	            	console.log("erro");
+	            }
+            };
+            
+            request.onerror = function() {            
+                console.log("Erro:"+request);
+            };
+
+            request.send();
+	  	};
+  	</script>
+  	  
+  </body>
+</html>  
