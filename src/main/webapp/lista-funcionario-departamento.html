@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Funcionarios e Departamentos</title>
+  </head>
+  <body>
+	<button id="inicial" type="button">Pagina Inicial</button>
+    <button type="button">Criar</button>
+    
+    <table id="listaFuncionarioDepartamento" border="1">
+    	<tr>
+          <td>Funcionario</td>
+          <td>Documento</td>
+          <td>Idade</td>
+          <td>Data Nascimento</td>
+          <td>Cargo</td>
+          <td>Departamento</td>
+          <td>Chefe</td>
+        </tr>        
+    </table>  
+    
+    <script type="text/javascript">
+	    document.getElementById("inicial").onclick = function () {	    	
+	        location.href = "http://localhost:8080/index.html";
+	    };
+	    
+	    window.onload = function() {
+	    	let resp;
+            let request = new XMLHttpRequest();
+            request.open('GET', "http://localhost:8080/funcionarioDepartamento", true);
+            request.onload = function() {
+	            if (request.readyState == 4 && (request.status >= 200 && request.status < 400)) {
+	                // Success!
+	                resp = request.responseText;
+	                	                
+	                var retorno = request.responseText;
+	                var obj = JSON.parse(retorno);
+	                var size = obj.length;
+        			
+        			var table = document.getElementById('listaFuncionarioDepartamento');        			        			
+        			        			
+        			for(var i= 0; i< size; i++){
+        				var row = table.insertRow(i+1);
+    	                row.innerHTML = "<td>"+obj[i].funcionarioId.funcionarioName+"</td> <td>"+
+    	                						obj[i].funcionarioId.funcionarioDocument+"</td> <td>"+
+    	                						obj[i].funcionarioId.funcionarioAge+"</td> <td>"+
+    	                						obj[i].funcionarioId.funcionarioBirthday+"</td> <td>"+
+    	                						obj[i].funcionarioId.cargoId.cargoName+"</td> <td>"+
+    	                						obj[i].departamentoId.departamentoName+"</td> <td>"+
+    	                						obj[i].departamentoId.funcionarioId.funcionarioName+"</td>";	
+        			}
+	                	                
+	            } else {
+	            	console.log("erro");
+	            }
+            };
+            
+            request.onerror = function() {            
+                console.log("Erro:"+request);
+            };
+
+            request.send();
+	    };
+	    	    
+	    
+    </script>
+    
+  </body>
+</html>
