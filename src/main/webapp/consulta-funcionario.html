@@ -7,7 +7,7 @@
 	<button id="inicial" type="button">Pagina Inicial</button>
     <button type="button">Criar</button>
     
-    <table id="lista-funcionario" border="1">
+    <table id="listaFuncionario" border="1">
         <tr>
           <td>Nome</td>
           <td>Documento</td>
@@ -30,28 +30,24 @@
 	            if (request.readyState == 4 && (request.status >= 200 && request.status < 400)) {
 	                // Success!
 	                resp = request.responseText;
-	                console.log(resp);
-	                
+	                	                
 	                var retorno = request.responseText;
 	                var obj = JSON.parse(retorno);
 	                var size = obj.length;
         			
-        			var table = document.getElementById('lista-funcionario');        			        			
-        			
-        			
+        			var table = document.getElementById('listaFuncionario');        			        			
+        			        			
         			for(var i= 0; i< size; i++){
         				var row = table.insertRow(i+1);
     	                row.innerHTML = "<td>"+obj[i].funcionarioName+"</td> <td>"+obj[i].funcionarioDocument+"</td><td>"+obj[i].funcionarioAge+"</td><td>"+obj[i].funcionarioBirthday+"</td><td>"+obj[i].cargoId.cargoName+"</td>";	
         			}
-	                
-	                //document.getElementById(id).innerText=resp;
+	                	                
 	            } else {
 	            	console.log("erro");
 	            }
             };
             
-            request.onerror = function() {
-            // There was a connection error of some sort
+            request.onerror = function() {            
                 console.log("Erro:"+request);
             };
 
