@@ -9,12 +9,34 @@
     
     <table id="listaDepartamento" border="1">
         <tr>
+          <td>Codigo</td>
           <td>Nome</td>
-          <td>Chefe</td>          
+          <td>Chefe</td>
+          <td>Ações</td>          
         </tr>
     </table>  
     
     <script type="text/javascript">
+    	function excluirLinha(btn) {
+    	  var row = btn.parentNode.parentNode;
+    	  var data = row.cells[0].firstChild.data;
+    	  
+    	  var http = new XMLHttpRequest();  			
+		  http.open('DELETE', "http://localhost:8080/departamento/" + data, true);
+		  
+		  http.onload = function () {			
+			if (http.readyState == 4 && (http.status >= 200 && http.status < 400)) {
+				row.parentNode.removeChild(row);
+				alert("Registro removido com sucesso");
+			} else {
+				console.log(http.responseText);
+			}
+		  }
+		  
+		  http.send();    	  
+    	  
+    	}
+    
 	    document.getElementById("inicial").onclick = function () {	    	
 	        location.href = "http://localhost:8080/index.html";
 	    };
@@ -40,7 +62,10 @@
         			        			
         			for(var i= 0; i< size; i++){
         				var row = table.insertRow(i+1);
-    	                row.innerHTML = "<td>"+obj[i].departamentoName+"</td> <td>"+obj[i].funcionarioId.funcionarioName+"</td>";	
+    	                row.innerHTML = '<td>'+obj[i].departamentoId+'</td> <td>'+
+    	                				obj[i].departamentoName+'</td> <td>'+
+    	                				obj[i].funcionarioId.funcionarioName+'</td> <td>'+
+    	                				'<input type="button" value="Excluir" onclick="excluirLinha(this)" </td>';	
         			}
 	                	                
 	            } else {
