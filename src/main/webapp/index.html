@@ -4,11 +4,15 @@
     <title>Pagina inicial</title>    
   </head>
   <body>
+    <button id="depto" type="button" >Departamentos</button>
     <button id="func" type="button" >Funcionarios</button>
     <button id="funcDepto" type="button" >Funcionarios por Departamento</button>
     <button id="histFuncDepto" type="button" >Histórico Departamentos por Funcionarios</button>
         
     <script type="text/javascript">
+	    document.getElementById("depto").onclick = function () {	    	
+	        location.href = "http://localhost:8080/consulta-departamento.html";
+	    };
 	    document.getElementById("func").onclick = function () {	    	
 	        location.href = "http://localhost:8080/consulta-funcionario.html";
 	    };

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Consulta Departamento</title>
+  </head>
+  <body>
+	<button id="inicial" type="button">Pagina Inicial</button>
+    <button type="button">Criar</button>
+    
+    <table id="listaDepartamento" border="1">
+        <tr>
+          <td>Nome</td>
+          <td>Chefe</td>          
+        </tr>
+    </table>  
+    
+    <script type="text/javascript">
+	    document.getElementById("inicial").onclick = function () {	    	
+	        location.href = "http://localhost:8080/index.html";
+	    };
+	    
+	    window.onload = function() {
+	    	let resp;
+            let request = new XMLHttpRequest();
+            request.open('GET', "http://localhost:8080/departamento", true);
+            request.onload = function() {
+	            if (request.readyState == 4 && (request.status >= 200 && request.status < 400)) {
+	                // Success!
+	                resp = request.responseText;
+	                	                
+	                var retorno = request.responseText;
+	                var obj = JSON.parse(retorno);
+	                var size = obj.length;
+        			
+        			var table = document.getElementById('listaDepartamento');        			        			
+        			        			
+        			for(var i= 0; i< size; i++){
+        				var row = table.insertRow(i+1);
+    	                row.innerHTML = "<td>"+obj[i].departamentoName+"</td> <td>"+obj[i].funcionarioId.funcionarioName+"</td>";	
+        			}
+	                	                
+	            } else {
+	            	console.log("erro");
+	            }
+            };
+            
+            request.onerror = function() {            
+                console.log("Erro:"+request);
+            };
+
+            request.send();
+	    };
+	    	    
+	    
+    </script>
+    
+  </body>
+</html>
