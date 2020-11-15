@@ -6,6 +6,9 @@ para acessar a documentacao da API pelo Swagger
 acesse através do link
 http://localhost:8080/swagger-ui.html
 
+pagina inicial do sistema
+http://localhost:8080/index.html
+
 utilizei uma ferramenta de migracao de BD FlyWay
 com esta ferramenta, quando for inicializada pela primeira vez,
 a aplicacao gerará todas as tabelas do BD 
