@@ -9,14 +9,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.cardiff.api.model.FuncionarioDepartamento;
+import com.cardiff.api.model.HistoricoFuncionarioDepartamento;
 import com.cardiff.api.repository.FuncionarioDepartamentoRepository;
+import com.cardiff.api.repository.HistoricoFuncionarioDepartamentoRepository;
 import com.cardiff.api.repository.filter.FuncionarioDepartamentoFilter;
 
 @Service
 public class FuncionarioDepartamentoService {
 
 	@Autowired
-	FuncionarioDepartamentoRepository funcionarioDepartamentoRepository;
+	private FuncionarioDepartamentoRepository funcionarioDepartamentoRepository;
+	@Autowired
+	private HistoricoFuncionarioDepartamentoRepository historicofuncionarioDepartamentoRepository;
 	
 	public List<FuncionarioDepartamento> pesquisar(FuncionarioDepartamentoFilter dff){
 		return funcionarioDepartamentoRepository.pesquisar(dff);
@@ -32,6 +36,7 @@ public class FuncionarioDepartamentoService {
 	}
 	
 	public FuncionarioDepartamento criar(FuncionarioDepartamento funcionarioDepartamento){
+		gravaHistorico(funcionarioDepartamento);
 		return funcionarioDepartamentoRepository.save(funcionarioDepartamento);
 	}
 	
@@ -40,9 +45,17 @@ public class FuncionarioDepartamentoService {
 	}
 	
 	public FuncionarioDepartamento atualizar(Long funcionarioDepartamentoId, FuncionarioDepartamento funcionarioDepartamento){
-		FuncionarioDepartamento fd = buscarPeloCodigo(funcionarioDepartamentoId);				// consultando registro no BD 		
+		FuncionarioDepartamento fd = buscarPeloCodigo(funcionarioDepartamentoId);				// consultando registro no BD 					
 		BeanUtils.copyProperties(funcionarioDepartamento, fd, "funcionarioDepartamentoId");		// pegando as propriedades do cliente e setando no registro q veio do BD
+		
+		gravaHistorico(fd);
+		
 		return funcionarioDepartamentoRepository.save(fd);
+	}
+	
+	private void gravaHistorico(FuncionarioDepartamento fd){
+		HistoricoFuncionarioDepartamento hfd = new HistoricoFuncionarioDepartamento(fd);		
+		historicofuncionarioDepartamentoRepository.save(hfd);
 	}
 	
 	

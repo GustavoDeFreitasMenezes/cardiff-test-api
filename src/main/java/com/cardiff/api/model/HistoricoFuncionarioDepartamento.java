@@ -62,6 +62,14 @@ public class HistoricoFuncionarioDepartamento {
 	public void setDepartamentoId(Departamento departamentoId) {
 		this.departamentoId = departamentoId;
 	}
+	
+	public HistoricoFuncionarioDepartamento() {}
+	
+	public HistoricoFuncionarioDepartamento(FuncionarioDepartamento fd) {
+		this.histFuncDeptoData = LocalDate.now();
+		this.departamentoId = fd.getDepartamentoId();
+		this.funcionarioId = fd.getFuncionarioId();
+	}
 
 	@Override
 	public int hashCode() {
